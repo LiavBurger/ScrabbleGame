@@ -34,13 +34,6 @@ public class MainTrain {
 		
 		if(b.getTile('a')!=null || b.getTile('$')!=null || b.getTile('A')==null)
 			System.out.println("your getTile is wrong (-2)");
-
-//		System.out.println(b.size());
-//		Tile[] tiles = new Tile[200];
-//		for (int i = 0; i < 200; i++) {
-//			tiles[i] = b.getRand();
-//		}
-//		System.out.println(b.size());
 		
 	}
 	

@@ -106,7 +106,7 @@ public class Board {
         int score = 0;
         int wordMultiplier = 1;
         int tileMultiplier = 1;
-
+        //check github
         for (int i = 0; i < wordLength; i++) {
             if (word.isVertical()) {
                 String boardRef = getBoardRefString(row + i, col);

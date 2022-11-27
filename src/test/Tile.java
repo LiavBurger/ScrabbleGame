@@ -20,11 +20,19 @@ public class Tile {
         return Objects.hash(score, letter);
     }
 
+    /**
+     * Constructor for tile
+     * @param score tile score
+     * @param letter letter that will be represented by the tile
+     */
     private Tile(int score, char letter) {
         this.score = score;
         this.letter = letter;
     }
 
+    /**
+     * Bag is a public static inner class and will be the only class with the ability to create tiles.
+     */
     public static class Bag {
 
         private static Bag single_instance = null;
@@ -59,6 +67,9 @@ public class Tile {
             return single_instance;
         }
 
+        /**
+         * initialize the letter index dictionary by referencing 'a' to 0, 'b' to 1, ... 'z' to 25.
+         */
         private static void initializeLetterIndexDictionary() {
             for (int i = 0; i < alphabet.length; i++) {
                 letterIndexMap.put(alphabet[i], i);
@@ -88,6 +99,10 @@ public class Tile {
             return chosenTile;
         }
 
+        /**
+         * @param letter Character that represents a letter.
+         * @return Tile corresponding to a given letter.
+         */
         public Tile getTile(char letter) {
             if (!Character.isUpperCase(letter))
                 return null;
@@ -98,6 +113,10 @@ public class Tile {
             return tiles[letterIndex];
         }
 
+        /**
+         * This function puts a tile back inside the bag, functionally only adds 1 to the counter of specific letter.
+         * @param tile Tile.
+         */
         public void put(Tile tile) {
             if (tile == null)
                 return;
@@ -107,16 +126,26 @@ public class Tile {
             }
         }
 
+        /**
+         * @return returns the amount of tiles left in the bag.
+         */
         public int size() {
             return Arrays.stream(remainingLetters).sum();
         }
 
+        /**
+         * @return returns a copy of the remaining letters array.
+         */
         public int [] getQuantities() {
             int[] remainingLettersCopy = new int[26];
             System.arraycopy(remainingLetters, 0, remainingLettersCopy, 0, remainingLetters.length);
             return remainingLettersCopy;
         }
 
+        /**
+         * @param letter letter
+         * @return returns the amount of tiles left of a specific letter.
+         */
         public int getRemainingOfLetter(char letter) {
             return remainingLetters[letterIndexMap.get(letter)];
         }

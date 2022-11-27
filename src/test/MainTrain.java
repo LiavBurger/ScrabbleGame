@@ -3,19 +3,19 @@ package test;
 import test.Tile.Bag;
 
 public class MainTrain {
-	
+
 	public static void testBag() {
 		Bag b=Tile.Bag.getBag();
 		Bag b1=Tile.Bag.getBag();
 		if(b1!=b)
 			System.out.println("your Bag in not a Singleton (-5)");
-		
+
 		int[] q0 = b.getQuantities();
 		q0[0]+=1;
 		int[] q1 = b.getQuantities();
 		if(q0[0]!=q1[0] + 1)
 			System.out.println("getQuantities did not return a clone (-5)");
-		
+
 		for(int k=0;k<9;k++) {
 			int[] qs = b.getQuantities();
 			Tile t = b.getRand();
@@ -31,14 +31,14 @@ public class MainTrain {
 			if(b.getQuantities()[i]!=qs[i])
 				System.out.println("problem with put (-1)");
 		}
-		
+
 		if(b.getTile('a')!=null || b.getTile('$')!=null || b.getTile('A')==null)
 			System.out.println("your getTile is wrong (-2)");
-		
+
 	}
-	
-	
-	
+
+
+
 	private static Tile[] get(String s) {
 		Tile[] ts=new Tile[s.length()];
 		int i=0;
@@ -48,8 +48,8 @@ public class MainTrain {
 		}
 		return ts;
 	}
-	
-	
+
+
 	public static void testBoard() {
 		Board b = Board.getBoard();
 		if (b != Board.getBoard())
@@ -103,13 +103,12 @@ public class MainTrain {
 		Word atone = new Word(get("A_ONE"), 11, 3, false);
 		if (b.tryPlaceWord(atone) != 26)
 			System.out.println("ATONE should be 26 (-15)");
-
 	}
 
 	public static void main(String[] args) {
 		testBag(); // 30 points
 		testBoard(); // 70 points
-		System.out.println("done");				
+		System.out.println("done");
 	}
 
 }

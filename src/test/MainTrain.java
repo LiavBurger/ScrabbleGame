@@ -103,6 +103,7 @@ public class MainTrain {
 		Word atone = new Word(get("A_ONE"), 11, 3, false);
 		if (b.tryPlaceWord(atone) != 26)
 			System.out.println("ATONE should be 26 (-15)");
+
 	}
 
 	public static void main(String[] args) {

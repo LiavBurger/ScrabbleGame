@@ -14,7 +14,6 @@ public class Board {
     private final ArrayList<Word> foundWords = new ArrayList<>();
 
 
-
     private Board() {
         initBoardScores();
     }
@@ -109,6 +108,7 @@ public class Board {
     /**
      * This function returns the score of a word according to the tiles it's composed of.
      * The function checks each tile to see if it's on a special board index, and updates the score accordingly.
+     *
      * @param word word
      * @return score total for all the tiles.
      */
@@ -124,31 +124,52 @@ public class Board {
         for (int i = 0; i < wordLength; i++) {
             if (word.isVertical()) {
                 String boardRef = getBoardRefString(row + i, col);
-                if (Objects.equals(boardScores.get(boardRef), "2W")) {    wordMultiplier = wordMultiplier * 2; }
-                if (Objects.equals(boardScores.get(boardRef), "3W")) {    wordMultiplier = wordMultiplier * 3; }
-                if (Objects.equals(boardScores.get(boardRef), "2L")) {    tileMultiplier = 2; }
-                if (Objects.equals(boardScores.get(boardRef), "3L")) {    tileMultiplier = 3; }
+                if (Objects.equals(boardScores.get(boardRef), "2W")) {
+                    wordMultiplier = wordMultiplier * 2;
+                }
+                if (Objects.equals(boardScores.get(boardRef), "3W")) {
+                    wordMultiplier = wordMultiplier * 3;
+                }
+                if (Objects.equals(boardScores.get(boardRef), "2L")) {
+                    tileMultiplier = 2;
+                }
+                if (Objects.equals(boardScores.get(boardRef), "3L")) {
+                    tileMultiplier = 3;
+                }
                 score += word.getTiles()[i].score * tileMultiplier;
-                if (boardRef.equals("0707")) { boardScores.remove("0707"); }
+                if (boardRef.equals("0707")) {
+                    boardScores.remove("0707");
+                }
             }
-            if(!word.isVertical()) {
+            if (!word.isVertical()) {
                 String boardRef = getBoardRefString(row, col + i);
-                if (Objects.equals(boardScores.get(boardRef), "2W")) {    wordMultiplier = wordMultiplier * 2; }
-                if (Objects.equals(boardScores.get(boardRef), "3W")) {    wordMultiplier = wordMultiplier * 3; }
-                if (Objects.equals(boardScores.get(boardRef), "2L")) {    tileMultiplier = 2; }
-                if (Objects.equals(boardScores.get(boardRef), "3L")) {    tileMultiplier = 3; }
+                if (Objects.equals(boardScores.get(boardRef), "2W")) {
+                    wordMultiplier = wordMultiplier * 2;
+                }
+                if (Objects.equals(boardScores.get(boardRef), "3W")) {
+                    wordMultiplier = wordMultiplier * 3;
+                }
+                if (Objects.equals(boardScores.get(boardRef), "2L")) {
+                    tileMultiplier = 2;
+                }
+                if (Objects.equals(boardScores.get(boardRef), "3L")) {
+                    tileMultiplier = 3;
+                }
                 score += word.getTiles()[i].score * tileMultiplier;
-                if (boardRef.equals("0707")) { boardScores.remove("0707"); }
+                if (boardRef.equals("0707")) {
+                    boardScores.remove("0707");
+                }
             }
             tileMultiplier = 1;
 
         }
-        score = score  * wordMultiplier;
+        score = score * wordMultiplier;
         return score;
     }
 
     /**
      * This function is used to create the string representation of a board location.
+     *
      * @param r row
      * @param c column
      * @return returns a string in the shape of "xxyy" with xx being row and yy being column.
@@ -164,7 +185,7 @@ public class Board {
         else
             col = String.valueOf(c);
 
-        return row+col;
+        return row + col;
     }
 
     /**
@@ -172,8 +193,7 @@ public class Board {
      */
     public Tile[][] getTiles() {
         Tile[][] boardCopy = new Tile[BOARD_HEIGHT][BOARD_WIDTH];
-        for(int i = 0; i < board.length; i++)
-        {
+        for (int i = 0; i < board.length; i++) {
             System.arraycopy(this.board[i], 0, boardCopy[i], 0, this.board[0].length);
         }
         return boardCopy;
@@ -181,6 +201,7 @@ public class Board {
 
     /**
      * This function checks if a word is legal - basically checks if a word can be placed on the board.
+     *
      * @param word word
      * @return true / false
      */
@@ -199,11 +220,12 @@ public class Board {
 
     /**
      * Checks if the board is empty or has any tiles on it
+     *
      * @return true once a tile was found, false otherwise
      */
     private boolean isBoardEmpty() {
-        for (int i=0 ; i<BOARD_WIDTH; i++) {
-            for (int j=0; j<BOARD_HEIGHT; j++) {
+        for (int i = 0; i < BOARD_WIDTH; i++) {
+            for (int j = 0; j < BOARD_HEIGHT; j++) {
                 if (board[i][j] != null)
                     return false;
             }
@@ -214,6 +236,7 @@ public class Board {
     /**
      * This function checks if a word will be on the star square.
      * USE ONLY IF BOARD IS EMPTY.
+     *
      * @param word word
      * @return true / false accordingly.
      */
@@ -222,8 +245,7 @@ public class Board {
         if (word.isVertical()) {
             if (word.getCol() == 7)
                 return word.getRow() + wordLength > 7;
-        }
-        else {
+        } else {
             if (word.getRow() == 7)
                 return word.getCol() + wordLength > 7;
         }
@@ -233,6 +255,7 @@ public class Board {
 
     /**
      * Checks if the word is in the boundaries of the board
+     *
      * @param word word
      * @return true / false
      */
@@ -243,7 +266,7 @@ public class Board {
         int col = word.getCol();
         int wordLength = word.getTiles().length;
 
-        if(row < 0 || row >=BOARD_HEIGHT || col < 0 || col >=BOARD_WIDTH)
+        if (row < 0 || row >= BOARD_HEIGHT || col < 0 || col >= BOARD_WIDTH)
             return false;
 
         if (word.isVertical())
@@ -254,6 +277,7 @@ public class Board {
 
     /**
      * Checks if the word has an adjacent or overlapping tile
+     *
      * @param word word
      * @return true / false
      */
@@ -262,10 +286,11 @@ public class Board {
             return checkAdjacencyForVertical(word);
         else
             return checkAdjacencyForHorizontal(word);
-}
+    }
 
     /**
      * Checks if the word has an adjacent tile anywhere
+     *
      * @param word word
      * @return true / false
      */
@@ -275,27 +300,27 @@ public class Board {
         int wordLength = word.getTiles().length;
 
         // If the word has an adjacent tile from above
-        if (row-1 >= 0 && board[row-1][col] != null)
+        if (row - 1 >= 0 && board[row - 1][col] != null)
             return true;
 
         // If the word has an adjacent tile from below
-        if (row+wordLength+1 < BOARD_HEIGHT && board[row+wordLength+1][col] != null)
+        if (row + wordLength + 1 < BOARD_HEIGHT && board[row + wordLength + 1][col] != null)
             return true;
 
-        for (int i=0 ; i<wordLength; i++) {
+        for (int i = 0; i < wordLength; i++) {
             // If the word can have an adjacent tile from left or right
             if (col >= 1 && col <= 13) {
-                if (board[row + i][col-1] != null || board[row+i][col+1] != null)
+                if (board[row + i][col - 1] != null || board[row + i][col + 1] != null)
                     return true;
             }
             // If the word can have adjacent tiles only on left
-            if(col == BOARD_WIDTH-1) {
-                if (board[row+i][col-1] != null)
+            if (col == BOARD_WIDTH - 1) {
+                if (board[row + i][col - 1] != null)
                     return true;
             }
             // If the word can have adjacent tiles only on right
-            if(col == 0){
-                if(board[row+i][col+1] != null)
+            if (col == 0) {
+                if (board[row + i][col + 1] != null)
                     return true;
             }
         }
@@ -305,6 +330,7 @@ public class Board {
 
     /**
      * Checks if the word has an adjacent tile anywhere
+     *
      * @param word word
      * @return true / false
      */
@@ -314,27 +340,27 @@ public class Board {
         int wordLength = word.getTiles().length;
 
         // If the word has an adjacent tile from the left
-        if (col-1 >= 0 && board[row][col-1] != null)
+        if (col - 1 >= 0 && board[row][col - 1] != null)
             return true;
 
         // If the word has an adjacent tile from the right
-        if(col+wordLength+1 < BOARD_WIDTH && board[row][col+wordLength+1] != null)
+        if (col + wordLength + 1 < BOARD_WIDTH && board[row][col + wordLength + 1] != null)
             return true;
 
-        for (int i=0 ; i<wordLength; i++) {
+        for (int i = 0; i < wordLength; i++) {
             // If the word can have adjacent tiles from above or below
             if (row >= 1 && row <= 13) {
-                if (board[row-1][col+i] != null || board[row+1][col+i] != null)
+                if (board[row - 1][col + i] != null || board[row + 1][col + i] != null)
                     return true;
             }
             // If the word can have adjacent tiles only from above
-            if(row == BOARD_HEIGHT-1) {
-                if (board[row-1][col+i] != null)
+            if (row == BOARD_HEIGHT - 1) {
+                if (board[row - 1][col + i] != null)
                     return true;
             }
             // If the word can have adjacent tiles only from below
-            if(row == 0){
-                if(board[row+1][col+i] != null)
+            if (row == 0) {
+                if (board[row + 1][col + i] != null)
                     return true;
             }
         }
@@ -344,6 +370,7 @@ public class Board {
 
     /**
      * This function checks if the word doesn't need to change a tile to be added.
+     *
      * @param word word
      * @return true / false accordingly.
      */
@@ -358,17 +385,16 @@ public class Board {
 
         for (int i = 0; i < wordLength; i++) {
             if (word.isVertical()) {
-                if (word.getTiles()[i] == null || board[row+i][col] == null)
+                if (word.getTiles()[i] == null || board[row + i][col] == null)
                     continue;
-                if (boardCopy[row+i][col] == board[row+i][col]) {
+                if (boardCopy[row + i][col] == board[row + i][col]) {
                     countOfSameLetters++;
                     continue;
                 }
-            }
-            else {
-                if(word.getTiles()[i] == null || board[row][col+i] == null)
+            } else {
+                if (word.getTiles()[i] == null || board[row][col + i] == null)
                     continue;
-                if (boardCopy[row][col+i] == board[row][col+i]) {
+                if (boardCopy[row][col + i] == board[row][col + i]) {
                     countOfSameLetters++;
                     continue;
                 }
@@ -382,6 +408,7 @@ public class Board {
 
     /**
      * Checks if the word is legal in the dictionary
+     *
      * @param word word
      * @return true / false
      */
@@ -391,13 +418,14 @@ public class Board {
 
     /**
      * Creates an arraylist of the newly created words from the placed word.
+     *
      * @param word word
      * @return returns the arraylist of the new words.
      */
     private ArrayList<Word> getWords(Word word) {
         ArrayList<Word> newWords = new ArrayList<>();
         // If the board is empty, it's the only word
-        if(isBoardEmpty()) {
+        if (isBoardEmpty()) {
             //If word isn't complete, we can't write it. Return empty arraylist.
             if (!isWordComplete(word)) {
                 return newWords;
@@ -424,12 +452,13 @@ public class Board {
 
     /**
      * Checks if the word is complete or has a null tile anywhere
+     *
      * @param word word
      * @return true / false
      */
     private boolean isWordComplete(Word word) {
         int wordLength = word.getTiles().length;
-        for (int i=0 ; i<wordLength; i++) {
+        for (int i = 0; i < wordLength; i++) {
             if (word.getTiles()[i] == null)
                 return false;
         }
@@ -439,7 +468,8 @@ public class Board {
     /**
      * This function will be used with getWords function.
      * It will add all the newly formed words around the added word.
-     * @param word word
+     *
+     * @param word  word
      * @param words arraylist for the new words.
      */
     private void findNewWords(Word word, ArrayList<Word> words) {
@@ -453,7 +483,8 @@ public class Board {
     /**
      * This function finds all the new words that were created around the placement of a new word.
      * Used for a vertical word to find horizontal new words.
-     * @param word word
+     *
+     * @param word  word
      * @param words arraylist of new words
      */
     private void findHorizontalNewWords(Word word, ArrayList<Word> words) {
@@ -466,19 +497,19 @@ public class Board {
 
         for (int i = 0; i < wordLength; i++) {
             wordStart = col;
-            j=1;
+            j = 1;
             length = 1;
-            while(col-j >= 0 && boardCopy[row + i][col-j] != null) {
-                wordStart = col-j;
+            while (col - j >= 0 && boardCopy[row + i][col - j] != null) {
+                wordStart = col - j;
                 j++;
                 length++;
             }
-            j=1;
-            while(col+j < BOARD_WIDTH && boardCopy[row + i][col+j] != null) {
+            j = 1;
+            while (col + j < BOARD_WIDTH && boardCopy[row + i][col + j] != null) {
                 j++;
                 length++;
             }
-            if(length > 1) {
+            if (length > 1) {
                 Tile[] tiles = new Tile[length];
                 for (int k = 0; k < length; k++) {
                     tiles[k] = boardCopy[row + i][wordStart + k];
@@ -494,7 +525,8 @@ public class Board {
     /**
      * This function finds all the new words that were created around the placement of a new word.
      * Used for a horizontal word to find vertical new words.
-     * @param word word
+     *
+     * @param word  word
      * @param words new words
      */
     private void findVerticalNewWords(Word word, ArrayList<Word> words) {
@@ -507,19 +539,19 @@ public class Board {
 
         for (int i = 0; i < wordLength; i++) {
             wordStart = row;
-            j=1;
+            j = 1;
             length = 1;
-            while(row-j >= 0 && boardCopy[row-j][col+i] != null) {
-                wordStart = row-j;
+            while (row - j >= 0 && boardCopy[row - j][col + i] != null) {
+                wordStart = row - j;
                 j++;
                 length++;
             }
-            j=1;
-            while(row+j < BOARD_HEIGHT && boardCopy[row+j][col+i] != null) {
+            j = 1;
+            while (row + j < BOARD_HEIGHT && boardCopy[row + j][col + i] != null) {
                 j++;
                 length++;
             }
-            if(length > 1) {
+            if (length > 1) {
                 Tile[] tiles = new Tile[length];
                 for (int k = 0; k < length; k++) {
                     tiles[k] = boardCopy[wordStart + k][col + i];
@@ -534,6 +566,7 @@ public class Board {
 
     /**
      * Checks if a word is in the foundWords arraylist to see if it had been previously found.
+     *
      * @param word word
      * @return true / false
      */
@@ -553,6 +586,7 @@ public class Board {
     /**
      * Completes a word that has a null tile somewhere by checking the board to see
      * if there is a tile in the corresponding place.
+     *
      * @param word word
      * @return the word with the board values for where the word had a tile that was null.
      */
@@ -563,16 +597,15 @@ public class Board {
         Tile[] tiles = new Tile[wordLength];
         if (word.isVertical()) {
             for (int i = 0; i < wordLength; i++) {
-                if(word.getTiles()[i] == null)
-                    tiles[i] = board[row+i][col];
+                if (word.getTiles()[i] == null)
+                    tiles[i] = board[row + i][col];
                 else
                     tiles[i] = word.getTiles()[i];
             }
-        }
-        else {
+        } else {
             for (int i = 0; i < wordLength; i++) {
-                if(word.getTiles()[i] == null)
-                    tiles[i] = board[row][col+i];
+                if (word.getTiles()[i] == null)
+                    tiles[i] = board[row][col + i];
                 else
                     tiles[i] = word.getTiles()[i];
             }
@@ -583,6 +616,7 @@ public class Board {
 
     /**
      * Tries to place the word in the board and returns the score the move.
+     *
      * @param newWord new word to place
      * @return total score of the word + score of the additional words that were created.
      */
@@ -592,12 +626,12 @@ public class Board {
 
         ArrayList<Word> createdWords = getWords(newWord);
 
-        for(Word word: createdWords)
-            if(!dictionaryLegal(word))
+        for (Word word : createdWords)
+            if (!dictionaryLegal(word))
                 return 0;
         addWordToBoard(newWord, this.board);
         int score = 0;
-        for (Word word: createdWords) {
+        for (Word word : createdWords) {
             score += getScore(word);
         }
 
@@ -619,7 +653,8 @@ public class Board {
 
     /**
      * This function adds a word to the board.
-     * @param word word
+     *
+     * @param word  word
      * @param board board
      */
     private void addWordToBoard(Word word, Tile[][] board) {
@@ -627,14 +662,13 @@ public class Board {
         int col = word.getCol();
         int wordLength = word.getTiles().length;
 
-        if(word.isVertical()) {
-            for (int i=0; i<wordLength; i++) {
-                board[row+i][col] = word.getTiles()[i];
+        if (word.isVertical()) {
+            for (int i = 0; i < wordLength; i++) {
+                board[row + i][col] = word.getTiles()[i];
             }
-        }
-        else {
-            for (int i=0; i<wordLength; i++) {
-                board[row][col+i] = word.getTiles()[i];
+        } else {
+            for (int i = 0; i < wordLength; i++) {
+                board[row][col + i] = word.getTiles()[i];
             }
         }
     }

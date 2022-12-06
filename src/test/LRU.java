@@ -60,10 +60,6 @@ public class LRU implements CacheReplacementPolicy {
         return removedWord.value;
     }
 
-    public int getSizeOfCache() {
-        return this.cacheMap.size();
-    }
-
     /**
      * This is an inner class node which will be used for the doubly linked list.
      */

@@ -13,9 +13,9 @@ public class IOSearcher {
                 Scanner textScanner = new Scanner(new File(fileName));
                 while (textScanner.hasNextLine()) {
                     String line = textScanner.nextLine();
-                    //MIGHT NEED TO SPLIT WITH DELIMITERS
-                    if(line.contains(" " + word + " ")) {
-                        return true;
+                    for(String w : line.split("[\\s,?!.]+")) {
+                        if (w.equals(word))
+                            return true;
                     }
                 }
             } catch (FileNotFoundException e) {

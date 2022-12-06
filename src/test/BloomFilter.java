@@ -24,7 +24,7 @@ public class BloomFilter {
     }
 
     public void add(String word) {
-        byte[] bytes = word.getBytes();
+        byte[] bytes;
         for (MessageDigest md : this.messageDigesters) {
             bytes = md.digest(word.getBytes());
             BigInteger bigInt = new BigInteger(bytes);

@@ -27,7 +27,6 @@ public class CacheManager {
         this.crp = crp;
     }
 
-
     public boolean query(String word) {
         return wordsCache.contains(word);
     }
@@ -39,9 +38,4 @@ public class CacheManager {
         wordsCache.add(word);
         crp.add(word);
     }
-
-
-
-
-
 }

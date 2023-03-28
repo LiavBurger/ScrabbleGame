@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LRU implements CacheReplacementPolicy {
-    Map<String, Node> cacheMap = new HashMap<>();
-    Node leastRecentlyUsed = new Node("leastRecentlyUsed"); // left side of the list
-    Node mostRecentlyUsed = new Node("mostRecentlyUsed");  // right side of the list
+    private final Map<String, Node> cacheMap = new HashMap<>();
+    private final Node leastRecentlyUsed = new Node("leastRecentlyUsed"); // left side of the list
+    private final Node mostRecentlyUsed = new Node("mostRecentlyUsed");  // right side of the list
     // THE LINKED LIST WILL LOOK LIKE:
     // [LRU] <--> [a] <--> [b] <--> [c] <--> [MRU]
 
@@ -52,7 +52,6 @@ public class LRU implements CacheReplacementPolicy {
 
     @Override
     public String remove() {
-        //#TODO check what to remove if empty list / map
         Node removedWord = leastRecentlyUsed.next;
         cacheMap.remove(removedWord.value);
         leastRecentlyUsed.next = removedWord.next;

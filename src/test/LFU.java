@@ -7,8 +7,8 @@ import java.util.Map;
 
 
 public class LFU implements CacheReplacementPolicy {
-    Map<String, Node> cacheMap = new HashMap<>();
-    Map<Integer, DoublyList> frequencyMap = new HashMap<>();
+    private final Map<String, Node> cacheMap = new HashMap<>();
+    private final Map<Integer, DoublyList> frequencyMap = new HashMap<>();
 
     public LFU() {
     }
@@ -103,3 +103,35 @@ public class LFU implements CacheReplacementPolicy {
     }
 
 }
+//
+//package test;
+//
+//
+//import java.util.Collections;
+//import java.util.LinkedHashMap;
+//
+//public class LFU implements CacheReplacementPolicy {
+//
+//    private final LinkedHashMap<String, Integer> wordsMap;
+//    public LFU() {
+//        this.wordsMap = new LinkedHashMap<String, Integer>();
+//    }
+//
+//    @Override
+//    public void add(String word) {
+//        Integer count = wordsMap.remove(word);
+//        if (count != null) {
+//            wordsMap.put(word, count+1);
+//        } else {
+//            wordsMap.put(word, 1);
+//        }
+//    }
+//
+//    @Override
+//    public String remove() {
+//        String leastFreq = Collections.min(wordsMap.keySet());
+//        wordsMap.remove(leastFreq);
+//        return leastFreq;
+//    }
+//}
+

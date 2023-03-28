@@ -18,7 +18,7 @@ public class BloomFilter {
                 this.messageDigesters.add(MessageDigest.getInstance(hashAlgorithm));
             } catch (NoSuchAlgorithmException e) {
                 throw new RuntimeException(
-                        "Unknown hash function provided. Use  MD2, MD5, SHA-1, SHA-256, SHA-384 or SHA-512.");
+                        "Unknown hash function provided. Use MD2, MD5, SHA-1, SHA-256, SHA-384 or SHA-512.");
             }
         }
     }
@@ -47,7 +47,7 @@ public class BloomFilter {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0 ; i<bitset.size(); i++) {
+        for (int i = 0 ; i<bitset.length(); i++) {
             if (bitset.get(i)) {
                 sb.append("1");
             }
@@ -55,7 +55,6 @@ public class BloomFilter {
                 sb.append("0");
             }
         }
-        // replace all for trailing zeros
-        return sb.toString().replaceAll("0+$", "");
+        return sb.toString();
     }
 }
